@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { useEffect } from 'react';
+import  '../components/MyDynamicComponent';
+
 import "./globals.css";
+// import 'jquery';
+// import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const inter = Inter({ subsets: ["latin"] });
 
