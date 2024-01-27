@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
-
+const allRoutes = require('./app/routes/route');
 
 const app = express();
 
@@ -18,6 +18,8 @@ app.use(
       httpOnly: true,
     })
   );
+
+  app.use('/user',allRoutes.userRouter);
 
   app.get("/", (req, res) => {
     res.json({ message: "Welcome to bezkoder application." });
