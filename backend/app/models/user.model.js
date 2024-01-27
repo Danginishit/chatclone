@@ -16,6 +16,11 @@ const user = Sequilize.define('user',{
     password:DataTypes.STRING,
     email:DataTypes.STRING,
     status:DataTypes.INTEGER,
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequilize.literal('CURRENT_TIMESTAMP'),
+      },
 },{
     tableName:'user',
     timestamps: false,
