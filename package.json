@@ -15,10 +15,11 @@
     "express-validator": "^7.0.1",
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
-    "next": "14.1.0",
-    "react": "^18",
+    "next": "^14.1.0",
+    "next-connect": "^1.0.0",
+    "react": "^18.2.0",
     "react-cookie": "^7.0.2",
-    "react-dom": "^18"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",

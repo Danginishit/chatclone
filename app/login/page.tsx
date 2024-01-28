@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-
+import { useRouter } from 'next/navigation';
 
 
 export default function LoginForm() {
@@ -10,13 +10,13 @@ export default function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const router = useRouter();
 
-
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             console.log(process.env.LOCAL_API_URL);
-            const response = await fetch(process.env.LOCAL_API_URL+'/user/signin', {
+            const response = await fetch(process.env.LOCAL_API_URL + '/user/signin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,11 +26,11 @@ export default function LoginForm() {
                     password: password,
                 }),
             });
-            if(response.ok){
+            if (response.ok) {
                 const userData = await response.json();
-                console.log(userData);
                 setUser(userData);
                 setCookie('user', userData, { path: '/' });
+                router.push('/dashboard');
             }
             if (!response.ok) {
                 throw new Error('Failed to submit data');
@@ -40,7 +40,7 @@ export default function LoginForm() {
         }
         console.log('Email:', email, 'Password:', password);
     }
-    
+
 
     return (
         <form className='container' onSubmit={handleSubmit}>
