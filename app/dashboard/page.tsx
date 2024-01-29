@@ -1,5 +1,5 @@
 import SignOutButton from "../../components/SignOutButton"
-import  middleware  from '../dashboard/middleware';
+import  middleware  from '../middleware';
 export  {middleware}  ;
 export default function home() {
     return (<>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { useRouter } from 'next/navigation';
+import { serialize } from 'cookie';
 
 
 export default function LoginForm() {
@@ -29,7 +30,7 @@ export default function LoginForm() {
             if (response.ok) {
                 const userData = await response.json();
                 setUser(userData);
-                setCookie('user', userData, { path: '/' });
+                setCookie('user', serialize('user',JSON.stringify(userData)), { path: '/' });
                 router.push('/dashboard');
             }
             if (!response.ok) {

@@ -15,7 +15,6 @@ router.get("/about", (request) => {
 });
 
 router.use("/dashboard", (request) => {
-  console.log("klflksdlfh")
   return NextResponse.next();
 });
 
@@ -27,3 +26,8 @@ router.all(() => {
 export default function middleware(request: NextRequest, event: NextFetchEvent) {
   return router.run(request, event);
 }
+
+export const config = {
+  // matcher solution for public, api, assets and _next exclusion
+  matcher: '*',
+};
