@@ -21,6 +21,8 @@ app.use(
 
   app.use('/user',allRoutes.userRouter);
 
+  app.use('/chat',allRoutes.chatRoutes);
+
   app.get("/", (req, res) => {
     res.json({ message: "Welcome to bezkoder application." });
   });

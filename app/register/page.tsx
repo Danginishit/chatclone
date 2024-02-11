@@ -11,28 +11,29 @@ export default function LoginForm() {
     const [user, setUser] = useState(null);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
     const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(process.env.LOCAL_API_URL);
-            const response = await fetch(process.env.LOCAL_API_URL + '/user/signin', {
+            const response = await fetch(process.env.LOCAL_API_URL + '/user/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    username: username,
                     email: email,
                     password: password,
                 }),
             });
             if (response.ok) {
-                const userData = await response.json();
-                setUser(userData);
-                setCookie('user', serialize('user',JSON.stringify(userData)), { path: '/' });
-                router.push('/chat');
+                const data = await response.json();
+                if(data?.status == true){
+                  router.push('/login');
+                }
             }
             if (!response.ok) {
                 throw new Error('Failed to submit data');
@@ -50,6 +51,10 @@ export default function LoginForm() {
             <div className="form-outline mb-4">
                 <label className="form-label" >Email address</label>
                 <input type="email" id="form2Example1" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" />
+            </div>
+            <div className="form-outline mb-4">
+                <label className="form-label" >UserName</label>
+                <input type="text" id="form2Example1" value={username} onChange={(e) => setUsername(e.target.value)} className="form-control" />
             </div>
             <div className="form-outline mb-4">
                 <input type="password" id="form2Example2" value={password} onChange={(e) => setPassword(e.target.value)} required className="form-control" />
