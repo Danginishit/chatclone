@@ -50,6 +50,10 @@ body {
   z-index: 7
 }
 
+.chat{
+  overflow-y: scroll;
+}
+
 .chat-app .chat {
   margin-left: 280px;
   border-left: 1px solid #eaeaea

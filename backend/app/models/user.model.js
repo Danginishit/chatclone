@@ -16,6 +16,7 @@ const user = Sequilize.define('user',{
     password:DataTypes.STRING,
     email:DataTypes.STRING,
     status:DataTypes.INTEGER,
+    last_seen:DataTypes.TEXT,
     created_at: {
         type: DataTypes.DATE,
         allowNull: false,

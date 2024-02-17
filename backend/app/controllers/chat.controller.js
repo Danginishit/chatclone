@@ -42,4 +42,30 @@ const GetListForChat = async (toUser_id,token)=>{
     }
 }
 
-module.exports = {GetListForChat};
+const MessageStore = async(from_user, to_user, message)=>{
+    try {
+        // Assuming `chatModel` is correctly imported and initialized
+        const chat = await allModel.chatModel.chat.create({
+            from_user: from_user,
+            to_user: to_user,
+            message: message
+        });
+
+        return {
+            success: true,
+            status: 200,
+            data: chat,
+            message: "Chat message stored successfully"
+        };
+    } catch (error) {
+        console.error('Error storing chat message:', error);
+
+        return {
+            success: false,
+            status: 500,
+            error: "Internal Server Error",
+        };
+    }
+}
+
+module.exports = {GetListForChat,MessageStore};

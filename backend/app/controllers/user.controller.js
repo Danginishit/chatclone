@@ -29,6 +29,9 @@ const UserSignIn = async (email, password) => {
                 email: email,
             },
         });
+        user.last_seen = 'Online';
+        await user.save();
+
         if (!user) {
             return { success: false, message: "User Not found", status: 404 }
         }
@@ -64,7 +67,7 @@ const listusers = async () => {
     try{
         console.log("hello in controller")
         let result = await allModel.userModel.user.findAll({
-            attributes: ['id', 'username','email','status','created_at','updated_at']
+            attributes: ['id', 'username','email','status','last_seen','created_at','updated_at']
         });
         return result;
     }catch(err){
