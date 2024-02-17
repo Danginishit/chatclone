@@ -15,6 +15,14 @@ router.use("/dashboard", (request: NextRequest) => {
     }
     return NextResponse.next();
 });
+router.use("/chat", (request: NextRequest) => {
+    const userIdentity = cookie.parse(request.cookies.get('user')?.value ?? '');
+    
+    if(!userIdentity?.user){
+        return NextResponse.redirect(new URL("/login", request.url));
+    }
+    return NextResponse.next();
+});
 router.use("/login", (request: NextRequest) => {
     console.log()
     const userIdentity = cookie.parse(request.cookies.get('user')?.value ?? '');
