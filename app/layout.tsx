@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { useEffect } from 'react';
-import  '../components/MyDynamicComponent';
+import  '../components/MydynamicComponent';
 
 import "./globals.css";
 // import 'jquery';
