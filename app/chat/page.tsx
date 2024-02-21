@@ -15,7 +15,7 @@ export default function Home() {
     const [apiData, setapiData] = useState([]);
     const [touserData, setToUserData] = useState('');
     const [userChat, setUserChat] = useState('');
-    const [selectedUserInfo, setSelectedUserInfo] = useState('');
+    const [selectedUserInfo, setSelectedUserInfo] = useState({username:'',last_seen:''});
     const [currentUser, setCurrentuser] = useState({id:''});
     const [message, setMessage] = useState('');
     const [cookies] = useCookies(['user']);
