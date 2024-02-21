@@ -17,6 +17,7 @@ export default function Home() {
     const [userChat, setUserChat] = useState('');
     const [selectedUserInfo, setSelectedUserInfo] = useState('');
     const [currentUser, setCurrentuser] = useState('');
+    const [message, setMessage] = useState('');
     const [cookies] = useCookies(['user']);
     const router = useRouter();
 
@@ -43,18 +44,45 @@ export default function Home() {
                 const data = await ChatResponse.json();
                 setUserChat(data); // Set the API ResponseData to state if needed
             } else {
-                console.error('API request failed:', ResponseData.status, ResponseData.statusText);
+                console.error('API request failed:', ChatResponse.status, ChatResponse.statusText);
             }
         }
         UserChatData();
     };
+
+    const sendMessage = async () => {
+        const serializedData = cookies?.user;
+        const serializedUserData = serializedData.split('=')[1];
+        const userData = JSON.parse(decodeURIComponent(serializedUserData));
+        const ChatResponse = await fetch(process.env.LOCAL_API_URL + '/chat/store', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + userData?.token
+            },
+            body: JSON.stringify({
+                from_user: currentUser.id,
+                to_user: touserData,
+                message:message,
+            }),
+        });
+        if (ChatResponse.ok) {
+            const data = await ChatResponse.json();
+            if(data?.status){
+                setMessage('');
+                receiveDataFromChild(touserData);
+            }
+        } else {
+            console.error('API request failed:', ChatResponse.status, ChatResponse.statusText);
+        }
+    }
 
     useEffect(() => {
         const userlist = async () => {
             const serializedData = cookies?.user;
             const serializedUserData = serializedData.split('=')[1];
             const userData = JSON.parse(decodeURIComponent(serializedUserData));
-            setCurrentuser(userData)
+            setCurrentuser(userData);
             const ResponseData = await fetch(process.env.LOCAL_API_URL + '/user/list', {
                 method: 'GET',
                 headers: {
@@ -73,7 +101,7 @@ export default function Home() {
 
         userlist();
         // console.log(apiData)
-    }, [cookies?.user,touserData]);
+    }, [cookies?.user,touserData,userChat]);
 
 
     if(selectedUserInfo.username){
@@ -83,7 +111,7 @@ export default function Home() {
                 <div className="row clearfix">
                     <div className="col-lg-12">
                         <div className="card chat-app">
-                            <LeftBar userList={apiData} selectUser={receiveDataFromChild} />
+                            <LeftBar userList={apiData} currentuser={currentUser} selectUser={receiveDataFromChild} />
                             <div className="chat">
                                 <div className="chat-header clearfix">
                                     <div className="row">
@@ -93,7 +121,7 @@ export default function Home() {
                                             </a>
                                             <div className="chat-about">
                                                 <h6 className="m-b-0">{selectedUserInfo?.username ?? "No User Selected"}</h6>
-                                                <small>Last seen: 2 hours ago</small>
+                                                <small>Last seen: {selectedUserInfo?.last_seen}</small>
                                             </div>
                                         </div>
                                         <div className="col-lg-6 hidden-sm text-right">
@@ -112,9 +140,9 @@ export default function Home() {
                                 <div className="chat-message clearfix">
                                     <div className="input-group mb-0">
                                         <div className="input-group-prepend">
-                                            <button className="input-group-text"><i className="fa fa-send"></i></button>
+                                            <button className="input-group-text" onClick={()=>{sendMessage()}}><i className="fa fa-send"></i></button>
                                         </div>
-                                        <input type="text" className="form-control" placeholder="Enter text here..." />
+                                        <input type="text" id="messgaeClear" className="form-control" placeholder="Enter text here..." onChange={ (e)=>{setMessage(e.target.value)} } value={message} />
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +159,7 @@ export default function Home() {
                 <div className="row clearfix">
                     <div className="col-lg-12">
                         <div className="card chat-app">
-                            <LeftBar userList={apiData} selectUser={receiveDataFromChild} />
+                            <LeftBar userList={apiData} currentuser={currentUser} selectUser={receiveDataFromChild} />
                         </div>
                     </div>
                 </div>
