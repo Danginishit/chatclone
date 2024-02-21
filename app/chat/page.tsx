@@ -12,15 +12,22 @@ import { useRouter } from "next/navigation";
 export default function Home() {
 
 
-    const [apiData, setapiData] = useState('');
+    const [apiData, setapiData] = useState([]);
     const [touserData, setToUserData] = useState('');
     const [userChat, setUserChat] = useState('');
+    const [selectedUserInfo, setSelectedUserInfo] = useState('');
     const [currentUser, setCurrentuser] = useState('');
     const [cookies] = useCookies(['user']);
     const router = useRouter();
 
     const receiveDataFromChild = async (data) => {
         await setToUserData(data);
+        apiData.map((value,index)=>{
+            if(parseInt(data)==parseInt(value.id)){
+                setSelectedUserInfo(value);
+            }
+        });
+
         const UserChatData = async () => {
             const serializedData = cookies?.user;
             const serializedUserData = serializedData.split('=')[1];
@@ -69,10 +76,10 @@ export default function Home() {
     }, [cookies?.user,touserData]);
 
 
-
-    return (
-        <>
-            <div className="container">
+    if(selectedUserInfo.username){
+        return(
+            <>
+                <div className="container">
                 <div className="row clearfix">
                     <div className="col-lg-12">
                         <div className="card chat-app">
@@ -85,7 +92,7 @@ export default function Home() {
                                                 <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" />
                                             </a>
                                             <div className="chat-about">
-                                                <h6 className="m-b-0">Aiden Chavez</h6>
+                                                <h6 className="m-b-0">{selectedUserInfo?.username ?? "No User Selected"}</h6>
                                                 <small>Last seen: 2 hours ago</small>
                                             </div>
                                         </div>
@@ -115,7 +122,22 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-        </>
-    );
+            </>
+        );
+    }else{
+        return (
+            <>
+                <div className="container">
+                <div className="row clearfix">
+                    <div className="col-lg-12">
+                        <div className="card chat-app">
+                            <LeftBar userList={apiData} selectUser={receiveDataFromChild} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </>
+        )
+    }
 
 }
