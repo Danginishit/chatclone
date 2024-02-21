@@ -16,7 +16,7 @@ export default function Home() {
     const [touserData, setToUserData] = useState('');
     const [userChat, setUserChat] = useState('');
     const [selectedUserInfo, setSelectedUserInfo] = useState('');
-    const [currentUser, setCurrentuser] = useState('');
+    const [currentUser, setCurrentuser] = useState({id:''});
     const [message, setMessage] = useState('');
     const [cookies] = useCookies(['user']);
     const router = useRouter();
