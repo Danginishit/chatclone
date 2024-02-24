@@ -104,13 +104,13 @@ export default function Home() {
 
         userlist();
         // console.log(apiData)
-    }, [cookies?.user,touserData,userChat]);
-    setInterval(()=>{
-        console.log("hello in polling")
-        if(touserData){
-            receiveDataFromChild(touserData);
-        }
-    },5000);
+        setInterval(()=>{
+            console.log("hello in polling")
+            if(touserData){
+                receiveDataFromChild(touserData);
+            }
+        },5000);
+    }, [cookies?.user]);
 
 
     if(selectedUserInfo.username){
