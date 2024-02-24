@@ -106,7 +106,9 @@ export default function Home() {
         // console.log(apiData)
         setInterval(()=>{
             console.log("hello in polling")
+            console.log(touserData)
             if(touserData){
+                console.log(touserData)
                 receiveDataFromChild(touserData);
             }
         },5000);
