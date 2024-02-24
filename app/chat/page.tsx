@@ -108,7 +108,7 @@ export default function Home() {
             if(touserData){
                 receiveDataFromChild(touserData);
             }
-        },2000);
+        },5000);
         // console.log(apiData)
     }, [cookies?.user,touserData,userChat]);
 
