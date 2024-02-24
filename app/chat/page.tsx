@@ -51,11 +51,7 @@ export default function Home() {
     };
 
 
-    setInterval(()=>{
-        if(touserData){
-            receiveDataFromChild(touserData);
-        }
-    },2000)
+    
 
     const sendMessage = async () => {
         const serializedData = cookies?.user;
@@ -107,6 +103,11 @@ export default function Home() {
         }
 
         userlist();
+        setInterval(()=>{
+            if(touserData){
+                receiveDataFromChild(touserData);
+            }
+        },2000);
         // console.log(apiData)
     }, [cookies?.user,touserData,userChat]);
 
