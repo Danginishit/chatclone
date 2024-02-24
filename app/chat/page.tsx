@@ -48,8 +48,11 @@ export default function Home() {
             }
         }
         UserChatData();
+        setInterval(()=>{
+            console.log(data);
+            UserChatData();
+        },5000)
     };
-    
 
     const sendMessage = async () => {
         const serializedData = cookies?.user;
@@ -101,12 +104,8 @@ export default function Home() {
         }
 
         userlist();
-        setInterval(()=>{
-            console.log(touserData);
-            receiveDataFromChild(touserData);
-        },5000)
         // console.log(apiData)
-    }, [cookies?.user]);
+    }, [cookies?.user,touserData,userChat]);
 
 
     if(selectedUserInfo.username){
