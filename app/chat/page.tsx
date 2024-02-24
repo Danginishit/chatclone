@@ -105,7 +105,7 @@ export default function Home() {
 
         userlist();
         // console.log(apiData)
-    }, [cookies?.user,touserData,userChat]);
+    }, [cookies?.user]);
 
 
     if(selectedUserInfo.username){
