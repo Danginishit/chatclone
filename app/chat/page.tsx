@@ -50,6 +50,13 @@ export default function Home() {
         UserChatData();
     };
 
+
+    setInterval(()=>{
+        if(touserData){
+            receiveDataFromChild(touserData);
+        }
+    },2000)
+
     const sendMessage = async () => {
         const serializedData = cookies?.user;
         const serializedUserData = serializedData.split('=')[1];
