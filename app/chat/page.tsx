@@ -47,18 +47,8 @@ export default function Home() {
                 console.error('API request failed:', ChatResponse.status, ChatResponse.statusText);
             }
         }
-        setInterval(()=>{
-            console.log("hello in polling")
-            if(touserData){
-                console.log(touserData)
-                UserChatData();
-            }
-        },5000);
         UserChatData();
     };
-
-
-    
 
     const sendMessage = async () => {
         const serializedData = cookies?.user;
@@ -111,8 +101,7 @@ export default function Home() {
 
         userlist();
         // console.log(apiData)
-        
-    }, [cookies?.user]);
+    }, [cookies?.user,touserData,userChat]);
 
 
     if(selectedUserInfo.username){
