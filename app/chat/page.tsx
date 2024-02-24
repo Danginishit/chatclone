@@ -47,6 +47,13 @@ export default function Home() {
                 console.error('API request failed:', ChatResponse.status, ChatResponse.statusText);
             }
         }
+        setInterval(()=>{
+            console.log("hello in polling")
+            if(touserData){
+                console.log(touserData)
+                UserChatData();
+            }
+        },5000);
         UserChatData();
     };
 
@@ -104,14 +111,7 @@ export default function Home() {
 
         userlist();
         // console.log(apiData)
-        setInterval(()=>{
-            console.log("hello in polling")
-            console.log(touserData)
-            if(touserData){
-                console.log(touserData)
-                receiveDataFromChild(touserData);
-            }
-        },5000);
+        
     }, [cookies?.user]);
 
 
