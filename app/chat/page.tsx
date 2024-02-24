@@ -48,6 +48,10 @@ export default function Home() {
             }
         }
         UserChatData();
+        setInterval(()=>{
+            console.log(data);
+            UserChatData();
+        },5000)
     };
 
     const sendMessage = async () => {
