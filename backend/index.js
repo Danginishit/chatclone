@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
 const allRoutes = require('./app/routes/route');
+const userlastseen = require('./app/middlewares/updateLastseen.middleware');
 
 const app = express();
 
@@ -21,7 +22,7 @@ app.use(
 
   app.use('/user',allRoutes.userRouter);
 
-  app.use('/chat',allRoutes.chatRoutes);
+  app.use('/chat',[userlastseen.updateLastseen],allRoutes.chatRoutes);
 
   app.get("/", (req, res) => {
     res.json({ message: "Welcome to bezkoder application." });

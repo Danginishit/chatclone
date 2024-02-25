@@ -6,10 +6,15 @@ const usercontroller = require('../controllers/user.controller');
 const chatcontroller = require('../controllers/chat.controller');
 const { body, validationResult } = require('express-validator');
 const CheckexistingUser = require('../middlewares/verifySignUp');
+const updatelastseenmiddleware = require('../middlewares/updateLastseen.middleware')
 
 const allModels = require('../models/relationships');
 
 var router = express.Router();
+const app = express(); // Create an instance of express
+
+
+
 
 router.get('/list/:toUser_id', [jwt.verifyToken], async (req, res) => {
     let token = req.headers.authorization.split(' ')[1];

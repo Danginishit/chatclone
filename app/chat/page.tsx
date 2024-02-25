@@ -102,6 +102,15 @@ export default function Home() {
 
         userlist();
         // console.log(apiData)
+        const pollInterval = setInterval(() => {
+            if (touserData) {
+              receiveDataFromChild(touserData);
+            }
+          }, 5000); // Poll every 5 seconds
+    
+          // Cleanup interval on component unmount
+          return () => clearInterval(pollInterval);
+    // }, [cookies?.user,touserData,userChat]);
     }, [cookies?.user,touserData,userChat]);
 
 
